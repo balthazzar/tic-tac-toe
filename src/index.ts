@@ -7,7 +7,10 @@ import { onWsConnection } from './service';
 import { MongoClient } from 'mongodb';
 import { GameStatus } from './enum';
 
-const PORT = 4001;
+import dotenv from 'dotenv';
+dotenv.config();
+
+const PORT = process.env.PORT;
 
 const app = express();
 const server = http.createServer(app);
@@ -15,7 +18,7 @@ const wsServer = new WebSocket.Server({ server });
 
 const unfilledRooms: IGameRoom[] = [];
 
-const client = new MongoClient('mongodb://127.0.0.1:27017/test');
+const client = new MongoClient(process.env.MONGO_URI as string);
 
 const bootstrap = async () => {
   const mongoClient = await client.connect();

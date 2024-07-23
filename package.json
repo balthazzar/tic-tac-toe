@@ -5,15 +5,16 @@
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
-    "start": "node build/index.js",
-    "bot": "node build/bot.index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npx ts-node ./src/index.ts",
+    "bot": "npx ts-node ./src/bot.index.ts"
   },
   "author": "Andrey Koreshkov",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mongodb": "^6.8.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.5.3",
     "ws": "^8.18.0"
   },
