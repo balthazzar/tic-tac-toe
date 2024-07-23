@@ -75,23 +75,19 @@ const wsOnMessage = (db: Db, room: IGameRoom, currentRole: Role, ws: WebSocket, 
         room.game.currentRound = new Round(db);
         room.game.currentRound.status = GameStatus.IN_PROGRESS;
 
-        // const tossCoin = Math.round(Math.random());
-        for (const player of Object.values(room.players)) {
-          // currentRole = tossCoin ? Role.CROSS : Role.NOUGHT;
+        const { field, prevMove, status } = room.game.currentRound;
 
-          const { field, prevMove, status } = room.game.currentRound;
-
-          player.send(JSON.stringify({
-            type: MessageType.STATE,
-            data: {
-              game: {
-                field,
-                prevMove,
-                status,
-              },
+        ws.send(JSON.stringify({
+          type: MessageType.INIT,
+          data: {
+            role: currentRole,
+            game: {
+              field,
+              prevMove,
+              status,
             },
-          }));
-        }
+          },
+        }));
       } else {
         const anotherPlayer = currentRole === Role.CROSS ? Role.NOUGHT : Role.CROSS;
         const { field, prevMove, status } = room.game.currentRound;

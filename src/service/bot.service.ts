@@ -22,7 +22,7 @@ export class Bot {
           this.role = message.data.role;
 
           if (message.data.game.status === GameStatus.IN_PROGRESS) {
-            this.makeMove(field, this.role === Role.CROSS);
+            this.makeMove(field, true);
           }
 
           break;
@@ -150,6 +150,6 @@ export class Bot {
     const own = this.findPossibleMove(fieldMatrix, 1);
     const enemy = this.findPossibleMove(fieldMatrix, 1, true);
 
-    return own?.weight > enemy?.weight ? own : enemy;
+    return own?.weight < enemy?.weight ? enemy : own;
   }
 }
